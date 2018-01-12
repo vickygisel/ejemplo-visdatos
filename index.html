@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<style media="screen">
+#text {
+  width: 25%;
+  float: left;
+  margin-top: 7%;
+  margin-left: 3%;
+}
+
+#viz {
+  width: 65%;
+  float: right;
+  margin: 0 auto;
+}
+</style>
+
+<script src="d3.js"></script>
+<script src="d3plus.js"></script>
+
+<div id="text">
+  <h2>Bubble Chart</h2>
+  <p>Enclosure diagrams use containment (nesting) to represent the hierarchy. The size of each leaf node’s circle reveals a quantitative dimension of each data point. The enclosing circles show the approximate cumulative size of each subtree, but note that because of wasted space there is some distortion between levels; only the leaf nodes can be compared accurately. Although circle packing does not use space as efficiently as a treemap, the “wasted” space more prominently reveals the hierarchy.</p>
+  <a href="https://d3plus.org/examples/basic/b197f489fb0fc2093fee/">Bubble chart on D3plus</a>
+</div>
+
+<div id="viz"></div>
+
+<script>
+
+    d3.json("cities.json", function(error, ourdata) {
+      if (error) return console.error(error);
+      make_viz(ourdata);
+    });
+
+    function make_viz(data){
+      var visualization = d3plus.viz()
+          .container("#viz")
+          .data(data)
+          .type("bubbles") // Escoge el tipo de visualizacion
+          .id(["cluster", "label"]) // Escoge la agrupación y el nombre del nodo
+          .depth(1) // cuantos niveles o grupos dentro de otro grupo
+          .size("size") // peso o tamaño de los nodos
+          .color("color") // color de cada cluster
+          .draw()
+
+          //// Sugerencia
+          //id, ['cluster','label']
+          //size, size
+          //color, color
+    }
+</script>
